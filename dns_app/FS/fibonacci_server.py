@@ -22,7 +22,7 @@ def register_with_authoritative_server(hostname, ip, ttl=10):
     # Create a UDP socket
     udp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     # Send the registration message to Authoritative Server
-    udp_socket.sendto(message.encode(), ("127.0.0.1", 53533))
+    udp_socket.sendto(message.encode(), ("authoritative_server", 53533))
     # Wait for the response from the Authoritative Server
     udp_socket.settimeout(5)  # Set a timeout of 5 seconds
     try:
@@ -70,6 +70,6 @@ def get_fibonacci():
     return jsonify({"Fibonacci": result}), 200
 
 if __name__ == '__main__':
-    response_message = register_with_authoritative_server("fibonacci.com", "127.0.0.1")
+    response_message = register_with_authoritative_server("fibonacci.com", "fibonacci_server")
     print(f"Fibonacci Server Registration: {response_message}")    
-    app.run(debug=False, port=9090)  # Start Fibonacci Server on port 9090
+    app.run(host='0.0.0.0', debug=False, port=9090)  # Start Fibonacci Server on port 9090

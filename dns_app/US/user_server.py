@@ -14,7 +14,7 @@ def query_authoritative_server(hostname, as_ip, as_port):
     
     # Parse the response
     response = response.decode('utf-8').strip().split('\n')
-    if "VALUE=" in response[2]:
+    if len(response) > 2 and "VALUE=" in response[2]:
         ip_address = response[2].split('=')[1].strip()
         return ip_address
     else:
@@ -49,4 +49,4 @@ def get_fibonacci_from_fs():
         return "Failed to retrieve Fibonacci number", response.status_code
 
 if __name__ == '__main__':
-    app.run(debug=True, port=8080)
+    app.run(host='0.0.0.0', debug=True, port=8080)

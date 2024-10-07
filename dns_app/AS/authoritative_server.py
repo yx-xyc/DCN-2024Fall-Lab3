@@ -18,7 +18,7 @@ def save_dns_records(records):
 
 def start_authoritative_server():
     udp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    udp_socket.bind(('127.0.0.1', 53533))
+    udp_socket.bind(('0.0.0.0', 53533))
     
     print("Authoritative Server running on port 53533...")
     

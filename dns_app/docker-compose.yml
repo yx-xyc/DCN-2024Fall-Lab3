@@ -1,0 +1,38 @@
+version: '2'
+
+services:
+  authoritative_server:
+    build:
+      context: ./AS
+    container_name: authoritative_server
+    ports:
+      - "53533:53533/udp"  # Map UDP port 53533
+    networks:
+      - dns_network
+
+  fibonacci_server:
+    build:
+      context: ./FS
+    container_name: fibonacci_server
+    ports:
+      - "9090:9090"  # Expose Fibonacci Server's port
+    networks:
+      - dns_network
+    depends_on:
+      - authoritative_server  # Ensure AS starts first
+
+  user_server:
+    build:
+      context: ./US
+    container_name: user_server
+    ports:
+      - "8080:8080"  # Expose User Server's port
+    networks:
+      - dns_network
+    depends_on:
+      - authoritative_server  # Ensure AS starts first
+      - fibonacci_server      # Ensure FS starts first
+
+networks:
+  dns_network:
+    driver: bridge
