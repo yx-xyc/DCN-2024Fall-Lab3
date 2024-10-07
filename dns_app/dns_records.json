@@ -1,0 +1,1 @@
+{"fibonacci.com": {"ip_address": "127.0.0.1", "ttl": "10"}, "example.com": {"ip_address": "192.168.1.10", "ttl": "20"}, "test.com": {"ip_address": "localhost", "ttl": "50"}}
